@@ -1,6 +1,6 @@
 # Simple.CommandsAndQueries
 
-This is a basic library if interfaces to use for CQRS commands and queries.
+This is a basic library of interfaces to use for CQRS commands and queries.
 
 It is inspired by the work of [Vladimir Khorikov](https://github.com/vkhorikov) and his [course repository](https://github.com/vkhorikov/CqrsInPractice)
 
