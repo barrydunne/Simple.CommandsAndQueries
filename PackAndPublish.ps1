@@ -13,7 +13,6 @@ try {
 
     Write-Host "Pushing nupkg and snupkg packages v$version to NuGet" -ForegroundColor White -BackgroundColor DarkGreen
     dotnet nuget push "$PSScriptRoot\Simple.CommandsAndQueries\bin\Release\Simple.CommandsAndQueries.$version.nupkg" -s https://api.nuget.org/v3/index.json -k $key
-   #dotnet nuget push MyAwesomeLib.1.0.0.nupkg -s https://api.nuget.org/v3/index.json -k ~~your API key here~~
 
     Write-Host "Done" -ForegroundColor White -BackgroundColor DarkGreen
 }
