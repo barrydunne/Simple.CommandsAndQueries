@@ -35,15 +35,14 @@ jobs:
     - name: Build
       run: dotnet build -c Release Simple.CommandsAndQueries\Simple.CommandsAndQueries.csproj
 
-#    - name: Test net6
-#      run: dotnet test Simple.CommandsAndQueries.Tests\Simple.CommandsAndQueries.Tests.csproj -c Release --framework net6.0 -l "console;verbosity=normal" -l "trx;logfilename=TestResults.trx"
+    - name: Test net6
+      run: dotnet test Simple.CommandsAndQueries.Tests\Simple.CommandsAndQueries.Tests.csproj -c Release --framework net6.0 -l "console;verbosity=normal" -l "trx;logfilename=Net6TestResults.trx"
 
-#    - name: Test net7
-#      run: dotnet test Simple.CommandsAndQueries.Tests\Simple.CommandsAndQueries.Tests.csproj -c Release --framework net7.0 -l "console;verbosity=normal" -l "trx;logfilename=TestResults.trx"
+    - name: Test net7
+      run: dotnet test Simple.CommandsAndQueries.Tests\Simple.CommandsAndQueries.Tests.csproj -c Release --framework net7.0 -l "console;verbosity=normal" -l "trx;logfilename=Net7TestResults.trx"
         
     - name: Pack
       run: |
-        Write-Host "Hello from PowerShell"
         $version = '${{ github.event.inputs.version }}'
         $project = 'Simple.CommandsAndQueries\Simple.CommandsAndQueries.csproj'
         $description = "`"This is a basic library of interfaces to use for CQRS commands and queries.`""

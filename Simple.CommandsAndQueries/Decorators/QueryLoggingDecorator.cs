@@ -28,16 +28,16 @@ namespace Simple.CommandsAndQueries.Decorators
         /// <inheritdoc/>
         public TResult Handle(TQuery query)
         {
-            _logger.LogInformation("Handling query {QueryName}", _queryName);
+            _logger?.LogInformation("Handling query {QueryName}", _queryName);
             try
             {
                 var result = _handler.Handle(query);
-                _logger.LogInformation("Handled query {QueryName}", _queryName);
+                _logger?.LogInformation("Handled query {QueryName}", _queryName);
                 return result;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failure query command {QueryName}", _queryName);
+                _logger?.LogError(ex, "Failure handling query {QueryName}", _queryName);
                 throw;
             }
         }

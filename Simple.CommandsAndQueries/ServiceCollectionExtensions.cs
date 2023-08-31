@@ -34,12 +34,12 @@ namespace Simple.CommandsAndQueries
         /// <param name="assembly">The assembly containing the handler types.</param>
         /// <param name="withLoggingDecorator">If true a logging decorator will be added to each handler.</param>
         /// <returns>A reference to this instance after the operation has completed.</returns>
-        public static IServiceCollection AddCommandAndQueryHandlers(this IServiceCollection services, Assembly assembly, bool? withLoggingDecorator = false)
+        public static IServiceCollection AddCommandAndQueryHandlers(this IServiceCollection services, Assembly assembly, bool withLoggingDecorator = false)
         {
-            RegisterHandlers(services, assembly, typeof(ICommandHandler<>), withLoggingDecorator.GetValueOrDefault() ? typeof(CommandLoggingDecorator<>) : null);
-            RegisterHandlers(services, assembly, typeof(ICommandAsyncHandler<>), withLoggingDecorator.GetValueOrDefault() ? typeof(CommandLoggingAsyncDecorator<>) : null);
-            RegisterHandlers(services, assembly, typeof(IQueryHandler<,>), withLoggingDecorator.GetValueOrDefault() ? typeof(QueryLoggingDecorator<,>) : null);
-            RegisterHandlers(services, assembly, typeof(IQueryAsyncHandler<,>), withLoggingDecorator.GetValueOrDefault() ? typeof(QueryLoggingAsyncDecorator<,>) : null);
+            RegisterHandlers(services, assembly, typeof(ICommandHandler<>), withLoggingDecorator ? typeof(CommandLoggingDecorator<>) : null);
+            RegisterHandlers(services, assembly, typeof(ICommandAsyncHandler<>), withLoggingDecorator ? typeof(CommandLoggingAsyncDecorator<>) : null);
+            RegisterHandlers(services, assembly, typeof(IQueryHandler<,>), withLoggingDecorator ? typeof(QueryLoggingDecorator<,>) : null);
+            RegisterHandlers(services, assembly, typeof(IQueryAsyncHandler<,>), withLoggingDecorator ? typeof(QueryLoggingAsyncDecorator<,>) : null);
             return services;
         }
 

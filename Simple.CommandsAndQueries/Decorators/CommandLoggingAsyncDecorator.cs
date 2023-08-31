@@ -28,16 +28,16 @@ namespace Simple.CommandsAndQueries.Decorators
         /// <inheritdoc/>
         public async Task<Result> HandleAsync(TCommand command)
         {
-            _logger.LogInformation("Handling command {CommandName}", _commandName);
+            _logger?.LogInformation("Handling command {CommandName}", _commandName);
             try
             {
                 var result = await _handler.HandleAsync(command);
-                _logger.LogInformation("Handled command {CommandName} with result {Result}", _commandName, result.ToString());
+                _logger?.LogInformation("Handled command {CommandName} with result {Result}", _commandName, result.ToString());
                 return result;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failure handling command {CommandName}", _commandName);
+                _logger?.LogError(ex, "Failure handling command {CommandName}", _commandName);
                 throw;
             }
         }
