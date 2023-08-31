@@ -55,12 +55,9 @@ jobs:
     - name: Publish
       run: dotnet nuget push "${{env.DOTNET_ROOT}}\Package\*.${{ github.event.inputs.version }}.nupkg" -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_KEY }}
 
-    - name: Set up git username
+    - name: Tag version
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-
-    - name: Tag version
-      run: |
         git tag ${{ github.event.inputs.version }}
         git push origin ${{ github.event.inputs.version }}
