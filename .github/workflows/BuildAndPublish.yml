@@ -1,5 +1,12 @@
 # This workflow will build and publish the project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+# 
+# Rerequisites:
+#
+#   1) The NuGet API key stored as a repository secret named NUGET_KEY
+#      in Settings > Secrets and variables > Secrets
+#
+#   2) Workflow permissions set to read and write
+#      in Settings > Actions > General
 
 name: Build and Publish
 
@@ -46,8 +53,8 @@ jobs:
         Write-Host "Packing v$version of $project by $author $copyright description: $description"
         dotnet pack /p:PackageVersion=$version /p:AssemblyVersion=$version /p:FileVersion=$version /p:Authors=$author /p:Copyright=$copyright /p:Description=$description -c Release $project --output "${{env.DOTNET_ROOT}}\Package"
 
-    - name: Publish
-      run: dotnet nuget push "${{env.DOTNET_ROOT}}\Package\*.${{ github.event.inputs.version }}.nupkg" -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_KEY }}
+#    - name: Publish
+#      run: dotnet nuget push "${{env.DOTNET_ROOT}}\Package\*.${{ github.event.inputs.version }}.nupkg" -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_KEY }}
 
     - name: Set up git username
       run: |
