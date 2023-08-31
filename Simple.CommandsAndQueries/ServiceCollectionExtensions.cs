@@ -14,7 +14,8 @@ namespace Simple.CommandsAndQueries
         /// Add the default dispatcher service.
         /// </summary>
         /// <param name="services">The service collection to register with.</param>
-        public static void AddCommandAndQueryDispatcher(this IServiceCollection services)
+        /// <returns>A reference to this instance after the operation has completed.</returns>
+        public static IServiceCollection AddCommandAndQueryDispatcher(this IServiceCollection services)
             => services.AddTransient<ICQRSDispatcher, CQRSDispatcher>();
 
         /// <summary>
@@ -22,7 +23,8 @@ namespace Simple.CommandsAndQueries
         /// </summary>
         /// <typeparam name="T">The type of dispatcher.</typeparam>
         /// <param name="services">The service collection to register with.</param>
-        public static void AddCommandAndQueryDispatcher<T>(this IServiceCollection services) where T : class, ICQRSDispatcher
+        /// <returns>A reference to this instance after the operation has completed.</returns>
+        public static IServiceCollection AddCommandAndQueryDispatcher<T>(this IServiceCollection services) where T : class, ICQRSDispatcher
             => services.AddTransient<ICQRSDispatcher, T>();
 
         /// <summary>
@@ -31,12 +33,14 @@ namespace Simple.CommandsAndQueries
         /// <param name="services">The service collection to register with.</param>
         /// <param name="assembly">The assembly containing the handler types.</param>
         /// <param name="withLoggingDecorator">If true a logging decorator will be added to each handler.</param>
-        public static void AddCommandAndQueryHandlers(this IServiceCollection services, Assembly assembly, bool? withLoggingDecorator = false)
+        /// <returns>A reference to this instance after the operation has completed.</returns>
+        public static IServiceCollection AddCommandAndQueryHandlers(this IServiceCollection services, Assembly assembly, bool? withLoggingDecorator = false)
         {
             RegisterHandlers(services, assembly, typeof(ICommandHandler<>), withLoggingDecorator.GetValueOrDefault() ? typeof(CommandLoggingDecorator<>) : null);
             RegisterHandlers(services, assembly, typeof(ICommandAsyncHandler<>), withLoggingDecorator.GetValueOrDefault() ? typeof(CommandLoggingAsyncDecorator<>) : null);
             RegisterHandlers(services, assembly, typeof(IQueryHandler<,>), withLoggingDecorator.GetValueOrDefault() ? typeof(QueryLoggingDecorator<,>) : null);
             RegisterHandlers(services, assembly, typeof(IQueryAsyncHandler<,>), withLoggingDecorator.GetValueOrDefault() ? typeof(QueryLoggingAsyncDecorator<,>) : null);
+            return services;
         }
 
         private static void RegisterHandlers(IServiceCollection services, Assembly assembly, Type handlerGenericInterface, Type? loggingDecoratorType)

@@ -23,8 +23,9 @@ as well as extensions to the IServiceCollection to register the dispatcher and a
 ## Registration sample
 
 ```
-builder.Services.AddCommandAndQueryDispatcher();
-builder.Services.AddCommandAndQueryHandlers(typeof(MyQueryAsyncHandler).Assembly);
+builder.Services
+   .AddCommandAndQueryDispatcher()
+   .AddCommandAndQueryHandlers(typeof(MyQueryAsyncHandler).Assembly);
 ```
 
 ## Sample usage
@@ -36,7 +37,23 @@ public class MyClass
 
     public MyClass(ICQRSDispatcher cqrs) => _cqrs = cqrs;
 
-    public async Task<IResult> GetVersionAsync() => await _cqrs.DispatchAsync(new GetVersionQuery());
+    public string GetVersion() => _cqrs.Dispatch(new GetVersionQuery());
+
+    public async Task<MyModel> GetModelAsync() => await _cqrs.DispatchAsync(new GetModelQuery());
+}
+
+public class GetVersionQuery : IQuery<string> { }
+
+public class GetVersionQueryHandler : IQueryHandler<GetVersionQuery, string>
+{
+    public string Handle(GetVersionQuery query) => "1.0";
+}
+
+public class GetModelQuery : IQuery<MyModel> { }
+
+public class GetModelQueryHandler : IQueryAsyncHandler<GetModelQuery, MyModel>
+{
+    public async Task<MyModel> HandleAsync(GetModelQuery query) => await ReadMyModelFromDbAsync());
 }
 ```
 
